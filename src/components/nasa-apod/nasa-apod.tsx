@@ -4,19 +4,25 @@ import { useState, useEffect } from "react";
 function NasaApod() {
   const nasaUrl =
     "https://api.nasa.gov/planetary/apod?api_key=PL5Z8wEDitGfaBgApq91Ks8FHegJLBONe6OJ7yF1";
-  const [title, setTitle] = useState("");
-  const [explanation, setExplanation] = useState("");
-  // const [hdurl, setHdurl] = useState("");
+  const [data, setData] = useState({
+    explanation: "",
+    hdurl: "",
+    title: "",
+  });
 
   async function fetchData() {
     const response = await axios(nasaUrl);
-    const title = response.data.title;
-    const explanation = response.data.explanation;
-    // const hdurl = response.date.hdurl;
-    setTitle(title);
-    setExplanation(explanation);
-    console.log(response);
+    const data = response.data;
+    const newData = {
+      explanation: data.explanation,
+      hdurl: data.hdurl,
+      title: data.title,
+    };
+    setData(newData);
+    console.log(data);
   }
+  const { explanation, hdurl, title } = data;
+
   useEffect(() => {
     fetchData();
   }, []);
@@ -25,6 +31,9 @@ function NasaApod() {
     <div className="bgc">
       <h1>{title}</h1>
       <p>{explanation}</p>
+      <p>
+        <img className="img" src={`${hdurl}`} />
+      </p>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 function WeatherData() {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=56.5&lon=85&lang=ru&appid=4e06d6a0ebb465f07812720d4a60e7c1&units=metric`;
 
@@ -8,6 +8,14 @@ function WeatherData() {
     main: { temp: 0, feels_like: 0, humidity: 0 },
     weather: { description: "", icon: "" },
   });
+
+  const [time, setTime] = useState<string>();
+
+  const updateTime = () => {
+    const time = new Date().toLocaleString();
+    setTime(time);
+  };
+
   useEffect(() => {
     axios.get(weatherUrl).then((response) => {
       const data = response.data;
@@ -27,17 +35,23 @@ function WeatherData() {
     });
   }, []);
 
-  const formatData = (param) => {
+  useEffect(() => {
+    const interval = setInterval(() => updateTime(), 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const formatData = (param: number) => {
     return Math.round(param);
   };
   const { name, main, weather } = data;
   const { temp, feels_like, humidity } = main;
   const { description, icon } = weather;
 
-  console.log("render");
   return (
     <>
       <div className="city">
+        <p>Времечко: {time} </p>
         <p>Город: {name}</p>
       </div>
       <div className="temp">
@@ -50,7 +64,11 @@ function WeatherData() {
         <p>Влажность: {formatData(humidity)} %</p>
       </div>
       <div className="cloud">
-        <p>Облачность: {(description, icon)} </p>
+        <p>Облачность: {description} </p>
+
+        <figure>
+          <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
+        </figure>
       </div>
     </>
   );

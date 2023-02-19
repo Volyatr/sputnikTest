@@ -9,3 +9,8 @@
   height: 100vh;
   position: relative;
 }
+
+.img {
+  width: 200px;
+  height: 200px;
+}

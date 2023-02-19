@@ -15,15 +15,15 @@ import App from "./App";
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<App />}>
-      <Route index="true" element={<Weather />} />,
+      <Route index={true} element={<Weather />} />,
       <Route path="gallery" element={<Gallery />} />
-    </Route>
-  )
+    </Route>,
+  ),
 );
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById("root") as Element);
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
-  </React.StrictMode>
+  </React.StrictMode>,
 );
