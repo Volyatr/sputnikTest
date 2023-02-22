@@ -1,10 +1,11 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { Nasa } from "../../interfaces/nasa-apod";
 
 function NasaApod() {
   const nasaUrl =
     "https://api.nasa.gov/planetary/apod?api_key=PL5Z8wEDitGfaBgApq91Ks8FHegJLBONe6OJ7yF1";
-  const [data, setData] = useState({
+  const [data, setData] = useState<Nasa>({
     explanation: "",
     hdurl: "",
     title: "",
@@ -12,15 +13,15 @@ function NasaApod() {
 
   async function fetchData() {
     const response = await axios(nasaUrl);
-    const data = response.data;
-    const newData = {
+    const data: Nasa = response.data;
+    const newData: Nasa = {
       explanation: data.explanation,
       hdurl: data.hdurl,
       title: data.title,
     };
     setData(newData);
-    console.log(data);
   }
+
   const { explanation, hdurl, title } = data;
 
   useEffect(() => {

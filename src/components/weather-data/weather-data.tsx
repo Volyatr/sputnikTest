@@ -1,9 +1,10 @@
 import axios from "axios";
-import { useState, useEffect, SetStateAction } from "react";
+import { useState, useEffect } from "react";
+import { WeatherParams } from "../../interfaces/weather";
 function WeatherData() {
   const weatherUrl = `https://api.openweathermap.org/data/2.5/weather?lat=56.5&lon=85&lang=ru&appid=4e06d6a0ebb465f07812720d4a60e7c1&units=metric`;
 
-  const [data, setData] = useState({
+  const [data, setData] = useState<WeatherParams>({
     name: "",
     main: { temp: 0, feels_like: 0, humidity: 0 },
     weather: { description: "", icon: "" },
