@@ -1,3 +1,3 @@
-after cloning the repository
-run npm i
-after installation type npm start command
+after cloning the repository,
+run npm i,
+then installation type npm start command
