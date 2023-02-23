@@ -68,7 +68,7 @@ function WeatherData() {
         <p>Облачность: {description} </p>
 
         <figure>
-          <img src={`http://openweathermap.org/img/wn/${icon}@2x.png`} />
+          <img src={`http://openweathermap.org/img/wn/${icon}@4x.png`} />
         </figure>
       </div>
     </>
